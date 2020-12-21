@@ -2,14 +2,11 @@ import React, { useState } from 'react'
 import Login from '../components/Login/Login'
 import Register from '../components/Register/Register'
 
-function Home() {
+function Home(props) {
     const [box, setBox] = useState(true)
     const onClickChangeBox = () => {
         setBox((box) => !box)
         console.log(box)
-    }
-    const onClickLogin = () => {
-       
     }
     return (
         <div className="bg_home">
@@ -17,7 +14,7 @@ function Home() {
             <div className="w100per">
                 {
                     box ?
-                        <Login onClickChangeBox={onClickChangeBox}></Login>
+                        <Login onClickChangeBox={onClickChangeBox} setRole={props.setRole}></Login>
                         :
                         <Register onClickChangeBox={onClickChangeBox}></Register>
                 }

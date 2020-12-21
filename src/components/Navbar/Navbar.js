@@ -1,14 +1,26 @@
 import React from 'react'
-
+import { Link, useHistory } from "react-router-dom";
+import LocalStorageService from "../../services/localStorage";
 function Navbar() {
+    const history = useHistory();
+
     return (
-        <header class="header">
-            <h1 class="logo"><a href="#">Flexbox</a></h1>
-            <ul class="main-nav">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Portfolio</a></li>
-                <li><a href="#">Contact</a></li>
+        <header className="header">
+            <h1 className="logo"><a href="#">Clinic</a></h1>
+            <ul className="main-nav">
+                <Link to="/">
+                    Home
+                </Link>
+                <Link to="/profile">
+                    Profile
+                </Link>
+                <a onClick={() => {
+                    LocalStorageService.clearToken();
+                    history.push("/");
+                    window.location.reload();
+                }}>
+                    Log out
+                </a>
             </ul>
         </header>
     )

@@ -1,13 +1,23 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import axios from "../../config/axios";
-import { Input, notification } from "antd";
+import { Form, Input, notification, Button } from "antd";
 import LocalStorageService from "../../services/localStorage";
 
 function Login(props) {
     const onClickChangeBox = props.onClickChangeBox;
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const onClickLogin = (e) => {
+    const layout = {
+        labelCol: { span: 8 },
+        wrapperCol: { span: 16 },
+    };
+    const tailLayout = {
+        wrapperCol: { offset: 8, span: 16 },
+    };
+    const [form] = Form.useForm();
+    const formRef = useRef(null)
+
+    const onFinish = (values) => {
+        const { email, password } = values
+        console.log(email, password)
         axios
             .post("/users/login", { email, password })
             .then((res) => {
@@ -15,6 +25,8 @@ function Login(props) {
                     description: "Login success",
                 });
                 LocalStorageService.setToken(res.data.token, res.data.role);
+                // props.history.push("/");
+                props.setRole("USER");
             })
             .catch((err) => {
                 console.log(err);
@@ -25,19 +37,47 @@ function Login(props) {
     }
     return (
         <div className="bg_Login">
-            <div className="padding20">
-                <form>
-                    <div>
-                        <label>Email</label>
-                        <input onChange={(e) => { setEmail(e.target.value) }}></input>
+            <div className="padding20" style={{ display: "flex" }}>
+                <Form
+                    {...layout}
+                    name="login"
+                    form={form}
+                    ref={formRef}
+                    onFinish={onFinish}
+                >
+                    <Form.Item
+                        label="Email"
+                        name="email"
+                        rules={[{ required: true, message: 'Please input your email!' }]}
+                    >
+                        <Input />
+                    </Form.Item>
+                    <Form.Item
+                        label="Password"
+                        name="password"
+                        rules={[{ required: true, message: 'Please input your password!' }]}
+                    >
+                        <Input />
+                    </Form.Item>
+                    <div style={{
+                        display: "flex",
+                        width: "100%"
+                    }}>
+                        <Form.Item {...tailLayout} style={{
+                            width: "50%"
+                        }}>
+                            <Button type="primary" htmlType="submit">
+                                Login
+                        </Button>
+                        </Form.Item>
+                        <Form.Item {...tailLayout} style={{
+                            width: "50%"
+                        }}>
+                            <a onClick={() => onClickChangeBox()}>Create Account</a>
+                        </Form.Item>
                     </div>
-                    <div>
-                        <label>Password</label>
-                        <input onChange={(e) => { setPassword(e.target.value) }}></input>
-                    </div>
-                </form>
-                <button onClick={() => onClickLogin()}>Login</button>
-                <button onClick={() => onClickChangeBox()}>Create Account</button>
+                </Form>
+                {/* <button onClick={() => onClickChangeBox()}>Create Account</button> */}
             </div>
         </div>
     )

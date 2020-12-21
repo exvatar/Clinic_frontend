@@ -79,7 +79,13 @@ a {
   border-radius: 5px;
   flex-direction: row;
   justify-content: space-between;
+  z-index: 1;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #ffffff;
 }
+
 /* navbar */
 
 /* ----------------------------------------------------- */
@@ -99,22 +105,28 @@ a {
 .bg_Login {
   background-color: white;
   opacity: 90%;
-  border-radius: 15px;
-  width: 80%;
+  width: 50%;
   height: 200px;
   position: relative;
+  margin-left: 15%;
+  border: 1px solid #ffffff;
+  -webkit-box-shadow: 0px 0px 14px 0px rgba(104, 195, 255, 0.75);
+  -moz-box-shadow: 0px 0px 14px 0px rgba(104, 195, 255, 0.75);
+  box-shadow: 0px 0px 14px 0px rgba(104, 195, 255, 0.75);
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
 }
+  /* Login */
+  /* Reservation - Clinic */
+  .clinic_list_item {
+    cursor: pointer;
+    padding: 15px !important;
+    margin: 7px;
+  }
 
-/* Login */
-/* Reservation - Clinic */
-.clinic_list_item {
-  cursor: pointer;
-  padding: 15px !important;
-  margin: 7px;
-}
+  .clinic_list_item:active {
+    border: 1px solid #718daa !important;
+  }
 
-.clinic_list_item:active {
-  border: 1px solid #718daa !important;
-}
-
-/* Reservation - Clinic */
+  /* Reservation - Clinic */

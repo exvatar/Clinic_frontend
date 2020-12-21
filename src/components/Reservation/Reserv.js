@@ -1,28 +1,37 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Steps, Button, message } from 'antd';
 import Clinic from './Clinic';
 import Date from './Date';
 import Sumerrize from './Sumerrize'
+import axios from '../../config/axios'
 const { Step } = Steps;
 
-const steps = [
-    {
-        title: 'Clinic',
-        content: <Clinic></Clinic>,
-    },
-    {
-        title: 'Date',
-        content: <Date></Date>,
-    },
-    {
-        title: 'Finish',
-        content: <Sumerrize></Sumerrize>,
-    },
-];
 
-function Reserv() {
-    const [current, setCurrent] = React.useState(0);
+function Reserv(props) {
+    const [current, setCurrent] = useState(0);
+    const [clinic, setClinic] = useState()
+    const [docter, setDocter] = useState([])
+    const [date, setDate] = useState("")
+    const [type, setType] = useState("")
 
+    const done = () => {
+        axios.post(`/reservation`, {
+            "reservationDate": date,
+            "createAt": "2537/01/01",
+            "updateAt": "2537/01/01",
+            "detail": "จัดฟัน",
+            "clinic_id": clinic.id,
+            "docter_id": docter.id,
+            "type_id": type.id
+        })
+            .then(res => {
+                console.log(res)
+                message.success('Processing complete!')
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
     const next = () => {
         setCurrent(current + 1);
     };
@@ -30,6 +39,21 @@ function Reserv() {
     const prev = () => {
         setCurrent(current - 1);
     };
+
+    const steps = [
+        {
+            title: 'Clinic',
+            content: <Clinic next={next} setClinic={setClinic} clinic={props.clinic}></Clinic>,
+        },
+        {
+            title: 'Date',
+            content: <Date next={next} clinic={clinic} setDate={setDate} setDocter={setDocter} docter={docter} setType={setType}></Date>,
+        },
+        {
+            title: 'Finish',
+            content: <Sumerrize next={next} clinic={clinic} date={date} docter={docter} type={type}></Sumerrize>,
+        },
+    ];
 
     return (
         <>
@@ -53,7 +77,9 @@ function Reserv() {
                     </Button>
                 )}
                 {current === steps.length - 1 && (
-                    <Button type="primary" onClick={() => message.success('Processing complete!')}>
+                    <Button type="primary" onClick={() => {
+                        done()
+                    }}>
                         Done
                     </Button>
                 )}

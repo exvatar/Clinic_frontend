@@ -1,36 +1,30 @@
-import { List, Avatar } from 'antd';
+import { List } from 'antd';
 
-const data = [
-	{
-		title: 'Clinic 1',
-	},
-	{
-		title: 'Clinic 2',
-	},
-	{
-		title: 'Clinic 3',
+
+function Clinic(props) {
+	const clinic = props.clinic;
+	const next = props.next;
+	const setClinic = props.setClinic;
+	const onClickSetClinic = (clinic) => {
+		setClinic(clinic)
+		next();
 	}
-];
-const onClickSetClinic = (item) => {
-	console.log(item)
-}
-
-function Clinic() {
+	console.log(clinic)
 	return (
 		<List
 			itemLayout="horizontal"
-			dataSource={data}
+			dataSource={clinic}
 			renderItem={item => (
 				<List.Item
-					onClick={() => {onClickSetClinic(item.title)}}
+					onClick={() => {onClickSetClinic(item)}}
 					className="clinic_list_item"
 				>
 					<List.Item.Meta
 						avatar={
 							<img style={{ width: "100px" }} alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />
 						}
-						title={<a>{item.title}</a>}
-						description="Ant Design, a design language for background applications, is refined by Ant UED Team"
+						title={<a>{item.name}</a>}
+						description={<p>address : {item.address}</p>}
 					/>
 				</List.Item>
 			)}
