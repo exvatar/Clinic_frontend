@@ -2,7 +2,6 @@ import { Card, Input } from 'antd'
 import React from 'react'
 
 function Profiles(props) {
-    console.log(props)
     return (
         <div style={{
 

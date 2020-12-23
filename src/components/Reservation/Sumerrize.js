@@ -6,7 +6,7 @@ function Sumerrize(props) {
     const clinic = props.clinic;
     const docter = props.docter;
     const type = props.type;
-    console.log(type)
+
     return (
         <div>
             <Card

@@ -1,3 +1,5 @@
+import Clinic from '../pages/Clinic';
+import ClinicProfile from '../pages/ClinicProfile';
 import Home from '../pages/Home'
 import Profile from '../pages/Profile'
 import Reservation from '../pages/Reservation'
@@ -14,6 +16,14 @@ const components = {
     reservation: {
         path: '/',
         page: Reservation
+    },
+    clinic: {
+        path: '/',
+        page: Clinic
+    },
+    clinicProfile : {
+        path: '/clinic',
+        page: ClinicProfile
     }
 };
 
@@ -25,6 +35,10 @@ const roles = {
         components.reservation,
         components.profile
     ],
+    CLINIC: [
+        components.clinic,
+        components.clinicProfile
+    ]
     // ADMIN: [
     //     components.admin
     // ]

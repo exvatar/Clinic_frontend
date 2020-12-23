@@ -17,7 +17,6 @@ function Login(props) {
 
     const onFinish = (values) => {
         const { email, password } = values
-        console.log(email, password)
         axios
             .post("/users/login", { email, password })
             .then((res) => {
@@ -26,7 +25,11 @@ function Login(props) {
                 });
                 LocalStorageService.setToken(res.data.token, res.data.role);
                 // props.history.push("/");
-                props.setRole("USER");
+                if (res.data.role === '1') {
+                    props.setRole("CLINIC");
+                } else {
+                    props.setRole("USER");
+                }
             })
             .catch((err) => {
                 console.log(err);

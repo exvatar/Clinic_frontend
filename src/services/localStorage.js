@@ -6,8 +6,8 @@ const getToken = () => {
 
 const setToken = (token, role) => {
   localStorage.setItem("ACCESS_TOKEN", token);
-  if (role === 1) {
-    return localStorage.setItem("ROLE", "ADMIN");
+  if (role === '1') {
+    return localStorage.setItem("ROLE", "CLINIC");
   }
   localStorage.setItem("ROLE", "USER");
 };

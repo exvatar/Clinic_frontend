@@ -10,7 +10,7 @@ function Home(props) {
     }
     return (
         <div className="bg_home">
-            <div className="w100per">Logo</div>
+            <div className="w100per"></div>
             <div className="w100per">
                 {
                     box ?

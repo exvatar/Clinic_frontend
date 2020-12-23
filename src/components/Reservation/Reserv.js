@@ -19,10 +19,11 @@ function Reserv(props) {
             "reservationDate": date,
             "createAt": "2537/01/01",
             "updateAt": "2537/01/01",
-            "detail": "จัดฟัน",
+            "detail": "",
             "clinic_id": clinic.id,
             "docter_id": docter.id,
-            "type_id": type.id
+            "type_id": type.id,
+            "status" : "RESERVE"
         })
             .then(res => {
                 console.log(res)
@@ -71,11 +72,11 @@ function Reserv(props) {
                 {steps[current].content}
             </div>
             <div className="steps-action">
-                {current < steps.length - 1 && (
+                {/* {current < steps.length - 1 && (
                     <Button type="primary" onClick={() => next()}>
                         Next
                     </Button>
-                )}
+                )} */}
                 {current === steps.length - 1 && (
                     <Button type="primary" onClick={() => {
                         done()

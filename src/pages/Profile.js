@@ -8,17 +8,28 @@ import axios from '../config/axios';
 function Profile(props) {
   const [menuComponent, setMenuComponent] = useState(1)
   const [profile, setProfile] = useState([])
+  const [history, setHistory] = useState([])
 
   useEffect(() => {
     axios.get("/users/profile")
       .then(res => {
-        console.log(res.data)
         setProfile(res.data);
       })
       .catch(err => {
         console.log(err)
       })
   }, []);
+
+  useEffect(() => {
+    axios.get("/reservation/getReservation")
+      .then(res => {
+        setHistory(res.data.allReservation);
+      })
+      .catch(err => {
+        console.log(err)
+      })
+
+  }, [])
 
   return (
     <div style={{ height: "100vh" }}>
@@ -53,7 +64,7 @@ function Profile(props) {
           width: "100%"
         }}>
           {
-            menuComponent == 1 ? <Profiles profile={profile}></Profiles> : <History></History>
+            menuComponent == 1 ? <Profiles profile={profile}></Profiles> : <History history={history}></History>
           }
         </div>
       </div>

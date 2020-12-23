@@ -5,6 +5,7 @@ import Home from '../../pages/Home'
 
 function PrivateRoutes(props) {
     const role = props.role || "GUEST";
+    console.log(role)
     return (
         <>
             <Switch>
